@@ -1,0 +1,32 @@
+# NodePort service for cluster
+# kubectl apply -f nodeport.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodeport-svc
+spec: 
+  type: NodePort 
+  selector:
+    webapp: httpd
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
+
+--- 
+
+# ClusterIP service for cluster
+# kubectl apply -f clusterip.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodeport-svc
+spec: 
+  type: ClusterIP
+  selector:
+    webapp: httpd
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

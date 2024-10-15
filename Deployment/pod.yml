@@ -1,0 +1,30 @@
+# pod template for httpd servive 
+# kubectl apply -f httpd.yml
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: httpd-pod
+  labels:
+    webapp: httpd
+spec:
+  containers:
+  - name: cont1
+    image: httpd
+    ports:
+      - containerPort: 80
+
+--- 
+# pod template for nginx service
+# kubectl apply -f nginx.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    webapp: httpd
+spec: 
+  containers:
+  - name: cont2
+    image: nginx
+    ports:
+      - containerPort: 80
