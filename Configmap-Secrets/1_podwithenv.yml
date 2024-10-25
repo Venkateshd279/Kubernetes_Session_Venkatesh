@@ -1,0 +1,22 @@
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: env-demo-pod
+  namespace: default 
+  labels:
+    app: env-demo-pod
+spec:
+  containers:
+  - name: env-demo-container
+    image: nginx
+    ports:
+     - containerPort: 80
+    env:
+     - name: endpoint 
+       value: "mydbk8surl"
+     - name: username
+       value: "Venkatesh"
+     - name: password
+       value: "Venkatesh@123"
+     - name: port 
+       value: "4406"

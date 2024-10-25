@@ -1,18 +1,7 @@
 apiVersion: v1
-kind: Secret 
-metadata:
-  name: my-secret
-  namespace: default
-data:
-  username: dXNlclZlbmthdAo=
-  password: bXlwYXNzd29yZEAzMwo=
-
----
-
-apiVersion: v1
 kind: Pod
 metadata:
-  name: demo-pod3
+  name: demo-pod2
   namespace: default
   labels:
     app: env-demo-pod
@@ -23,7 +12,7 @@ spec:
     ports:
      - containerPort: 80
     envFrom:
-     - secretRef:
-         name: my-secret
      - configMapRef:
          name: env-demo-configmap
+
+--- 
