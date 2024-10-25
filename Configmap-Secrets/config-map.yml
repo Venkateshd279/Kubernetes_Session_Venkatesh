@@ -1,0 +1,81 @@
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: env-demo-pod
+  namespace: default 
+  labels:
+    app: env-demo-pod
+spec:
+  containers:
+  - name: env-demo-container
+    image: nginx
+    ports:
+     - containerPort: 80
+    env:
+     - name: endpoint 
+       value: "mydbk8surl"
+     - name: username
+       value: "Venkatesh"
+     - name: password
+       value: "Venkatesh@123"
+     - name: port 
+       value: "4406"
+
+--- 
+
+--- 
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-demo-configmap
+  namespace: default
+data:
+  endpoint: mydbk8surl
+  username: Venkatesh_123
+  password: Ven@123
+--- 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod2
+  namespace: default
+  labels:
+    app: env-demo-pod
+spec:
+  containers:
+  - name: env-demo-container
+    image: nginx
+    ports:
+     - containerPort: 80
+    envFrom:
+     - configMapRef:
+         name: env-demo-configmap
+
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment1
+  labels:
+    name:  my-deployment1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: httpd 
+  template:
+    metadata:
+      labels:
+        app: httpd 
+    spec:
+      containers:
+      - name: env-demo-container
+        image: nginx
+        ports:
+         - containerPort: 80
+        envFrom:
+         - configMapRef:
+             name: env-demo-configmap 

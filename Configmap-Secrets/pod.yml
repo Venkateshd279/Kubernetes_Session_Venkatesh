@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod4
+  namespace: default
+  labels:
+    app: env-demo-pod
+spec:
+  containers:
+  - name: env-demo-container
+    image: nginx
+    ports:
+     - containerPort: 80
+    volumeMounts:
+     - name: test-volume
+       mountPath: "/var/www/html"
+  volumes:
+   - name: test-volume
+     persistentVolumeClaim:
+       claimName: test-volume-claim
